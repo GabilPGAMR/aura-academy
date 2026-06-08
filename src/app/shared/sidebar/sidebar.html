@@ -1,1 +1,35 @@
-<p>sidebar works!</p>
+<button type="button" class="sidebar-toggle" (click)="alternarMenu()" aria-label="Abrir ou fechar menu">
+  <i class="ph ph-list"></i>
+</button>
+
+@if (aberta()) {
+  <div class="sidebar-backdrop" (click)="fecharMenu()"></div>
+}
+
+<aside class="sidebar" [class.open]="aberta()">
+  <a routerLink="/dashboard" class="sidebar-logo" (click)="fecharMenu()">
+    <i class="ph-fill ph-planet"></i>
+    Aura Academy
+  </a>
+
+  <nav class="sidebar-nav">
+    <a routerLink="/dashboard" routerLinkActive="active" class="nav-link" (click)="fecharMenu()">
+      <i class="ph ph-squares-four"></i> Dashboard
+    </a>
+    <a routerLink="/cursos" routerLinkActive="active" class="nav-link" (click)="fecharMenu()">
+      <i class="ph ph-books"></i> Catálogo de Cursos
+    </a>
+    <a routerLink="/novo-curso" routerLinkActive="active" class="nav-link" (click)="fecharMenu()">
+      <i class="ph ph-plus-circle"></i> Criar Curso
+    </a>
+    <a routerLink="/perfil" routerLinkActive="active" class="nav-link" (click)="fecharMenu()">
+      <i class="ph ph-user"></i> Meu Perfil
+    </a>
+  </nav>
+
+  <div style="margin-top: auto;">
+    <a routerLink="/login" class="nav-link" style="color: var(--danger);" (click)="fecharMenu()">
+      <i class="ph ph-sign-out"></i> Sair
+    </a>
+  </div>
+</aside>

@@ -1,1 +1,52 @@
-<p>confirmacao works!</p>
+<div class="app-layout">
+  <app-sidebar></app-sidebar>
+
+  <main class="main-content confirmacao-main">
+    <div class="glass-panel fade-in confirmacao-card">
+      <div class="success-animation">
+        <i class="ph-fill ph-check-circle"></i>
+      </div>
+
+      <h1 style="color: var(--success); margin-bottom: 1rem;">Ação Confirmada!</h1>
+
+      @if (curso()) {
+        <p style="font-size: 1.1rem; margin-bottom: 2.5rem; color: var(--text-muted); line-height: 1.5;">
+          O curso foi publicado com sucesso e já aparece no catálogo da Aura Academy.
+        </p>
+
+        <div class="glass-panel confirmation-course-card">
+          <div style="display: flex; gap: 1.5rem; align-items: center;">
+            <img [src]="curso()!.image" style="width: 80px; height: 80px; border-radius: var(--radius-sm); object-fit: cover; border: 2px solid var(--primary);" alt="Imagem do curso">
+            <div>
+              <span class="badge" style="margin-bottom: 0.5rem; display: inline-block;">{{ curso()!.badge }}</span>
+              <h3 style="margin-bottom: 0.25rem;">{{ curso()!.title }}</h3>
+              <p style="font-size: 0.9rem; margin: 0; color: var(--text-muted);">
+                <i class="ph ph-clock"></i> {{ curso()!.duration }} • <i class="ph ph-star"></i> {{ curso()!.rating }}
+              </p>
+            </div>
+          </div>
+        </div>
+      } @else {
+        <p style="font-size: 1.1rem; margin-bottom: 2.5rem; color: var(--text-muted); line-height: 1.5;">
+          Sua solicitação foi processada com sucesso. O acesso ao material já está liberado na plataforma.
+        </p>
+
+        <div class="glass-panel confirmation-course-card">
+          <div style="display: flex; gap: 1.5rem; align-items: center;">
+            <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=150" style="width: 80px; height: 80px; border-radius: var(--radius-sm); object-fit: cover; border: 2px solid var(--primary);" alt="Course image">
+            <div>
+              <span class="badge" style="margin-bottom: 0.5rem; display: inline-block;">Premium</span>
+              <h3 style="margin-bottom: 0.25rem;">Design Systems na Prática</h3>
+              <p style="font-size: 0.9rem; margin: 0; color: var(--text-muted);"><i class="ph ph-clock"></i> Início Imediato • <i class="ph ph-infinity"></i> Acesso Vitalício</p>
+            </div>
+          </div>
+        </div>
+      }
+
+      <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
+        <a routerLink="/cursos" class="btn btn-outline"><i class="ph ph-arrow-left"></i> Voltar ao Catálogo</a>
+        <a routerLink="/dashboard" class="btn btn-primary" style="padding: 0.75rem 2rem;">Começar a Estudar <i class="ph ph-play-circle"></i></a>
+      </div>
+    </div>
+  </main>
+</div>

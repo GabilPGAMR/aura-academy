@@ -31,5 +31,7 @@ export const routes: Routes = [
   { path: 'confirmacao', loadComponent: () =>
       import('./pages/confirmacao/confirmacao')
       .then(m => m.Confirmacao)
-  }
+  },
+
+  { path: '**', redirectTo: 'login' }
 ];

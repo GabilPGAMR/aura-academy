@@ -1,19 +1,64 @@
-<h1>Catálogo de Cursos</h1>
+<div class="app-layout">
+  <app-sidebar></app-sidebar>
 
+  <main class="main-content">
+    <header class="topbar fade-in">
+      <div>
+        <h2 style="margin: 0;">Catálogo de Cursos</h2>
+        <p style="margin: 0;">Cursos personalizados carregados via API pública.</p>
+      </div>
+      <a routerLink="/novo-curso" class="btn btn-primary">
+        <i class="ph ph-plus-circle"></i> Criar Curso
+      </a>
+    </header>
 
-@if (loading()) {
-  <p>Carregando cursos...</p>
-}
+    <section class="fade-in" style="animation-delay: 0.1s;">
+      <div class="filters">
+        <button type="button" class="filter-btn" [class.active]="filtro() === 'todos'" (click)="alterarFiltro('todos')">Todos</button>
+        <button type="button" class="filter-btn" [class.active]="filtro() === 'design'" (click)="alterarFiltro('design')">Design</button>
+        <button type="button" class="filter-btn" [class.active]="filtro() === 'frontend'" (click)="alterarFiltro('frontend')">Front-end</button>
+        <button type="button" class="filter-btn" [class.active]="filtro() === 'backend'" (click)="alterarFiltro('backend')">API / Back-end</button>
+        <button type="button" class="filter-btn" [class.active]="filtro() === 'marketing'" (click)="alterarFiltro('marketing')">Marketing</button>
+      </div>
 
-@if (erro()) {
-  <p style="color: red;">{{ erro() }}</p>
-}
+      @if (loading()) {
+        <div class="glass-panel" style="padding: 2rem; text-align: center;">
+          <p><i class="ph ph-spinner ph-spin"></i> Carregando cursos...</p>
+        </div>
+      }
 
-@for (curso of cursos(); track curso.id) {
-  <div style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px;">
-    <h3>{{ curso.title }}</h3>
-    <p>{{ curso.body }}</p>
-  </div>
-} @empty {
-  <p>Nenhum curso encontrado.</p>
-}
+      @if (erro()) {
+        <div class="glass-panel" style="padding: 2rem; border-color: rgba(239, 68, 68, 0.4);">
+          <p style="color: var(--danger); margin: 0;"><i class="ph ph-warning-circle"></i> {{ erro() }}</p>
+        </div>
+      }
+
+      @if (!loading() && !erro()) {
+        <div class="course-grid">
+          @for (curso of cursosFiltrados(); track curso.id) {
+            <article class="glass-panel course-card course-filter-item">
+              <div class="course-img" [style.background]="'url(' + curso.image + ') center/cover'"></div>
+              <div class="course-meta">
+                <span class="badge">{{ curso.badge }}</span>
+                <span class="rating"><i class="ph-fill ph-star"></i> {{ curso.rating }}</span>
+              </div>
+              <h4>{{ curso.title }}</h4>
+              <p>{{ curso.body }}</p>
+              <div class="course-meta" style="margin-top: auto;">
+                <span><i class="ph ph-clock"></i> {{ curso.duration }}</span>
+                <span>{{ curso.level }}</span>
+              </div>
+              <a routerLink="/confirmacao" class="btn btn-primary" style="margin-top: 0.5rem; width: 100%;">
+                Matricular-se <i class="ph ph-arrow-right"></i>
+              </a>
+            </article>
+          } @empty {
+            <div class="glass-panel" style="padding: 2rem;">
+              <p>Nenhum curso encontrado para este filtro.</p>
+            </div>
+          }
+        </div>
+      }
+    </section>
+  </main>
+</div>

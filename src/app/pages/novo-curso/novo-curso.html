@@ -1,39 +1,68 @@
-<h1>Criar Novo Curso</h1>
+<div class="app-layout">
+  <app-sidebar></app-sidebar>
 
-@if (erro()) {
-  <p style="color: red;">{{ erro() }}</p>
-}
+  <main class="main-content">
+    <header class="topbar fade-in">
+      <div>
+        <h2 style="margin: 0;">Criar Novo Curso</h2>
+        <p style="margin: 0;">Publique uma nova trilha de aprendizagem para os alunos da Aura Academy.</p>
+      </div>
+    </header>
 
-@if (sucesso()) {
-  <p style="color: green;">{{ sucesso() }}</p>
-}
+    <section class="fade-in" style="animation-delay: 0.1s; max-width: 900px;">
+      <div class="glass-panel" style="padding: 2.5rem;">
+        @if (erro()) {
+          <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.4); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem;">
+            <p style="color: var(--danger); margin: 0;"><i class="ph ph-warning-circle"></i> {{ erro() }}</p>
+          </div>
+        }
 
-<form (submit)="criarCurso($event)">
-  <div style="margin-bottom: 1rem;">
-    <label for="titulo">Título do curso</label><br>
-    <input id="titulo" name="titulo" type="text" placeholder="Ex: Angular para Iniciantes">
-  </div>
+        @if (sucesso()) {
+          <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.4); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem;">
+            <p style="color: var(--success); margin: 0;"><i class="ph ph-check-circle"></i> {{ sucesso() }}</p>
+          </div>
+        }
 
-  <div style="margin-bottom: 1rem;">
-    <label for="descricao">Descrição</label><br>
-    <textarea id="descricao" name="descricao" placeholder="Descreva o conteúdo do curso"></textarea>
-  </div>
+        <form id="course-form" (submit)="criarCurso($event)">
+          <div class="form-group">
+            <label for="titulo">Título do curso</label>
+            <input id="titulo" name="titulo" type="text" class="form-control" placeholder="Ex: Angular para Interfaces Web">
+          </div>
 
-  <div style="margin-bottom: 1rem;">
-    <label for="categoria">Categoria</label><br>
-    <select id="categoria" name="categoria">
-      <option value="design">Design</option>
-      <option value="frontend">Frontend</option>
-      <option value="backend">Backend</option>
-      <option value="marketing">Marketing</option>
-    </select>
-  </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+            <div class="form-group">
+              <label for="categoria">Categoria</label>
+              <select id="categoria" name="categoria" class="form-control">
+                <option value="design">Design</option>
+                <option value="frontend">Front-end</option>
+                <option value="backend">API / Back-end</option>
+                <option value="marketing">Marketing</option>
+              </select>
+            </div>
 
-  <button type="submit" [disabled]="loading()">
-    @if (loading()) {
-      Criando curso...
-    } @else {
-      Criar Curso
-    }
-  </button>
-</form>
+            <div class="form-group">
+              <label for="duracao">Carga horária</label>
+              <input id="duracao" name="duracao" type="text" class="form-control" placeholder="Ex: 24h">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="descricao">Descrição</label>
+            <textarea id="descricao" name="descricao" class="form-control" rows="5" placeholder="Descreva os objetivos, conteúdos e benefícios do curso."></textarea>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem;">
+            <a routerLink="/cursos" class="btn btn-outline">Cancelar</a>
+            <button type="submit" class="btn btn-primary" [disabled]="loading()">
+              @if (loading()) {
+                <i class="ph ph-spinner ph-spin"></i> Publicando...
+              } @else {
+                <i class="ph ph-paper-plane-right"></i> Publicar Curso
+              }
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+</div>
