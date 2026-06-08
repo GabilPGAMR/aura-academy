@@ -1,0 +1,19 @@
+<h1>Catálogo de Cursos</h1>
+
+
+@if (loading()) {
+  <p>Carregando cursos...</p>
+}
+
+@if (erro()) {
+  <p style="color: red;">{{ erro() }}</p>
+}
+
+@for (curso of cursos(); track curso.id) {
+  <div style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px;">
+    <h3>{{ curso.title }}</h3>
+    <p>{{ curso.body }}</p>
+  </div>
+} @empty {
+  <p>Nenhum curso encontrado.</p>
+}

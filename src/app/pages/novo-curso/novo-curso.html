@@ -1,0 +1,39 @@
+<h1>Criar Novo Curso</h1>
+
+@if (erro()) {
+  <p style="color: red;">{{ erro() }}</p>
+}
+
+@if (sucesso()) {
+  <p style="color: green;">{{ sucesso() }}</p>
+}
+
+<form (submit)="criarCurso($event)">
+  <div style="margin-bottom: 1rem;">
+    <label for="titulo">Título do curso</label><br>
+    <input id="titulo" name="titulo" type="text" placeholder="Ex: Angular para Iniciantes">
+  </div>
+
+  <div style="margin-bottom: 1rem;">
+    <label for="descricao">Descrição</label><br>
+    <textarea id="descricao" name="descricao" placeholder="Descreva o conteúdo do curso"></textarea>
+  </div>
+
+  <div style="margin-bottom: 1rem;">
+    <label for="categoria">Categoria</label><br>
+    <select id="categoria" name="categoria">
+      <option value="design">Design</option>
+      <option value="frontend">Frontend</option>
+      <option value="backend">Backend</option>
+      <option value="marketing">Marketing</option>
+    </select>
+  </div>
+
+  <button type="submit" [disabled]="loading()">
+    @if (loading()) {
+      Criando curso...
+    } @else {
+      Criar Curso
+    }
+  </button>
+</form>
